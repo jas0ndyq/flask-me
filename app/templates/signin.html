@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+<head>
+	<title>Me-SignIn</title>
+</head>
+<div>
+<br>
+<form method='POST'>
+	{{ form.csrf_token }}
+	{{ form.username }}
+	{{ form.password }}
+	<input type='submit' />
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+<head>
+	<title>Me-SignUp</title>
+</head>
+
+<body>
+	<form method='post' autocomplete="off">
+	{{ form.csrf_token }}
+	<ul>
+		<li>{{ form.invitation }}邀请码</li><br>
+		<li>{{ form.email }}邮箱</li><br>
+		<li>{{ form.name }}用户名</li><br>
+		<li>{{ form.password }}密码</li>
+	</ul>
+	<input type='submit' />
+
+</form>
+</div>
+{% endblock %}
+</body>

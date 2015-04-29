@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block content %}
+<head>
+	<title>Me-User</title>
+</head>
+<body>
+	{% if current_user.is_authenticated() %}
+	<h1>hello {{ current_user.username}}</h1>
+	{% endif %}
+</body>
+{% endblock %}
