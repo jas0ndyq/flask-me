@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+{% block content %}
+<head>
+	<title>Me-User</title>
+</head>
+<body>
+<div class='container myContent'>
+	<div class='row'>
+	{% if current_user.is_authenticated() %}
+	<div class='panel panel-primary myPanel'>
+		<div class='panel-heading'>
+			<h3 class='text-center'>个人设置</h3>
+		</div>
+	<div class='panel-body'>
+		<form method='POST' type='text'>
+		{{ form.csrf_token }}
+		<div class='form-group'>
+			<label for='content-box'>说说你自己</label>
+		</div>
+			<div>
+		{% if user_content %}
+			<p>{{ user_content.body }}</p> <br>
+		{% endif %}
+		</div>
+		<div>
+		<textarea type='text' rows='3' name='contentbox' class='form-control' id='content-box' placeholder='在这里介绍你自己'></textarea>
+		</div>
+		<br>
+		<div class='signButton'>
+			<button type='submit' class='btn btn-primary'>
+				{% if user_content %}
+				确认修改
+				{% else %}
+				提交
+				{% endif %}
+			</button>
+		</div>
+		</form>
+
+		<form method='POST' class='form-inline'>
+		{{form_media.csrf_token}}
+		<div class='form-group'>
+			<label for='content-weibo'>微博</label>
+			http://weibo.com/{{ form_media.weibo(type='text', class_='form-control_media', id='content-weibo', placeholder='pyyw') }}
+		</div>
+		<br><br>
+		<div class='form-group'>
+			<label for='content-douban'>豆瓣</label>
+			http://www.douban.com/people/{{ form_media.douban(type='text', class_='form-control_media', id='content-douban', placeholder='123456') }}
+		</div>
+		<br><br>
+		<div class='form-group'>
+			<label for='content-weixin'>微信号，请搜索</label>
+			{{ form_media.weixin(type='text', class_='form-control_media', id='content-weixin', placeholder='loverose1029') }}
+		</div>
+		<br><br>
+		<div class='signButton'>
+			<button type='submit' class='btn btn-primary'>
+				{% if user_content %}
+				确认修改
+				{% else %}
+				提交
+				{% endif %}
+			</button>
+		</div>
+	</form>
+	</div>
+	</div>
+	</div>
+</div>
+	<br>
+
+
+	{% endif %}
+</body>
+{% endblock %}

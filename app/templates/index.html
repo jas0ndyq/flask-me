@@ -1,28 +1,27 @@
 {% extends 'layout.html' %}
-{% block content %}
+
 <head>
-<title>Me-Home</title>
+	<title>Me-首页</title>
 </head>
-<body>
-<div>
-		
 
-{% if current_user.is_authenticated() %}
-<h1>Hello {{ current_user.username}}!</h1>
-{% else %}
 
-<h1>Hello world!</h1>
-{% endif %}
-</div>
-
-<div>
+{% block content %}
+<div class='container myContent'>
 	{% if index_show %}
 	{% for i in index_show %}
-	<p>{{ i.body }}</p>
-	<b>-----BY:</b><p>{{ i.user_name }}</p><br>
-	===========================================
+	<div class='row'>
+	<div class='panel panel-primary myPanel'>
+		<div class='panel-heading'>
+			<h3 class='text-center'>{{ i.user_name }}</h3>
+		</div>
+		<div class='panel-body indexPanel'>{{ i.body }}</div>
+	</div>
+	</div>
 	{% endfor %}
 	{% endif %}
-</div>
-</body>
 {% endblock %}
+</div>
+
+
+
+

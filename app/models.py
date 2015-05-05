@@ -43,3 +43,18 @@ class Content(db.Model):
 
 	def __repr__(self):
 		return '<Content %r>' % self.body
+
+class Media(db.Model):
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	weibo = db.Column(db.String)
+	weixin = db.Column(db.String)
+	douban = db.Column(db.String)
+	user = db.relationship('User', backref=db.backref('pose_set2', lazy='dynamic'))
+	user_name = db.Column(db.String, db.ForeignKey('user.username'))
+
+	def __init__(self, weibo, weixin, douban, user):
+		self.weibo = weibo
+		self.weixin = weixin
+		self.douban = douban
+		self.user = user
+

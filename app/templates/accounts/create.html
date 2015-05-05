@@ -1,21 +1,48 @@
 {% extends 'layout.html' %}
-{% block content %}
 <head>
 	<title>Me-SignUp</title>
 </head>
 
-<body>
-	<form method='post' autocomplete="off">
-	{{ form.csrf_token }}
-	<ul>
-		<li>{{ form.invitation }}邀请码</li><br>
-		<li>{{ form.email }}邮箱</li><br>
-		<li>{{ form.name }}用户名</li><br>
-		<li>{{ form.password }}密码</li>
-	</ul>
-	<input type='submit' />
-
-</form>
+{% block content %}
+<div class='container myContent'>
+	<div class='row myRow'>
+		<div class='panel panel-primary myPanel'>
+			<div class='panel-heading'>
+				<h3 class='text-center'>注册</h3>
+			</div>
+			<div class='panel-body'>
+			<form method='POST' autocomplete="off">
+			{{ form.csrf_token }}
+		<div class='form-group'>
+			<label for='inputInvitation'>邀请码</label><br>
+			{{ form.invitation(type='text', class_='form-control', id='inputInvitation', placeholder='请输入邀请码') }}
+		</div><br>
+		<div class='form-group'>
+			<label for='inputEmail'>邮箱</label><br>
+			{{ form.email(type='email', class_='form-control', id='inputEmail', placeholder='邮箱') }}
+			{% for error in form.errors.email %}
+			<p>{{ error }}</p>
+			{% endfor %}			
+		</div><br>
+		<div class='form-group'>
+			<label for='inputUsername'>用户名</label><br>
+			{{ form.name(type='username', class_='form-control', id='inputUsername', placeholder='用户名') }}
+			
+		</div>
+		<br>
+		<div class='form-group'>
+			<label for='inputPwd'>密码</label><br>
+			{{ form.password(type='password', class_='form-control', id='inputPwd', placeholder='密码') }}
+			{% for error in form.errors.password %}
+			<p>{{ error }}</p>
+			{% endfor %}
+		</div><br>
+		<div class='signButton'>
+			<button type='submit' class='btn btn-default'>注册</button>
+		</div>
+	</form>
+	</div>
+</div>
+</div>
 </div>
 {% endblock %}
-</body>

@@ -1,0 +1,82 @@
+body {
+	background-color: #f0f0f0;
+}
+
+
+.row {
+	margin-top: 50px;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+.myRow {
+	width: 50%;
+}
+.panel-heading {
+	height: 50px;
+		
+}
+
+.text-center {
+	margin-top: 5px;
+}
+
+.myContent {
+	width: auto;
+	margin-top: 20px;
+}
+
+.navbar {
+	margin-bottom: 0
+}
+
+
+.panel {
+	border-radius: 6px;
+	box-shadow: rgba(0,0,0,.1) 0 1px 3px 0;
+	border-color: #B3D2ED;
+
+}
+.indexPanel {
+	height: 220px;
+	border-color: white;
+}
+
+
+
+.panel-primary>.panel-heading {
+	background-color: #4a90e2;
+}
+.panel-body {
+	display: block;
+	border-color: white;
+}
+
+.signButton {
+	text-align: right;
+}
+
+p.userBody {
+	padding-bottom: 30px;
+	border-bottom: 1px dashed gray;
+}
+.form-control_media {
+	    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 1px;
+    border-left-width: 0px;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: dashed;
+    border-left-style: none;
+    border-top-color: #000000;
+    border-right-color: #000000;
+    border-bottom-color: #000000;
+    border-left-color: #000000;
+
+}
+.form-control_media:focus {
+	outline:none;
+}
