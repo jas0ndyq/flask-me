@@ -9,14 +9,23 @@
 		<div class='panel panel-primary myPanel'>
 	{% if user_content %}
 	<div class='panel-body'>
-		<h3 class='text-center'>{{ user_content.user_name }}</h3>
-		<p class='userBody'>{{ user_content.body }}</p>
+		<div class='avatar'>
+			<img src='/static/avatar/default.jpg' class='img-responsive img-circle center-block userShow' alt='avatar' >
+		</div>
+		<h1 class='text-center usernameShow'>{{ user_content.user_name }}</h3>
+			<br>
+
 		<br>
+		<p class='userBody'>{{ user_content.body }}</p>
 		{% if user_media %}
-		<span class='label label-default'><a href='http://weibo.com/{{ user_media.weibo }}'>微博</a></span>
-		<span class='label label-default'>{{ user_media.weixin }}</span>
-		<span class='label label-default'><a href='http://douban.com/people/{{ user_media.douban }}'>豆瓣</a></span>
-		{% endif %}
+		<div class='socialLinks'>
+			<a href='http://weibo.com/{{ user_media.weibo }}' class='socialLink'><i class='fa icon-weibo'>微博</i></a>
+			<a href='http://douban.com/people/{{ user_media.douban }}' class='socialLink'><i class='fa icon-weibo'>豆瓣</i></a>
+			
+			
+		</div>
+		{% endif %}		
+
 	</div>
 	{% else %}
 	<div class='panel-body'>

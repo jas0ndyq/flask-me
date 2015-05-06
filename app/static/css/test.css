@@ -1,5 +1,6 @@
 body {
 	background-color: #f0f0f0;
+
 }
 
 
@@ -60,7 +61,6 @@ body {
 
 p.userBody {
 	padding-bottom: 30px;
-	border-bottom: 1px dashed gray;
 }
 .form-control_media {
 	    border-top-width: 0px;
@@ -79,4 +79,36 @@ p.userBody {
 }
 .form-control_media:focus {
 	outline:none;
+}
+img.userShow {
+	width: 120px;
+	height: 120px;
+}
+.usernameShow {
+	color: #4a90e2;
+}
+.socialLinks {
+	background-color: rgba(221,221,221,.2);
+	margin: 0 -1em;
+	text-align: center;
+	display: -webkit-flex;
+  	display: flex;
+}
+.socialLinks a {
+	text-decoration: none;
+}
+.socialLinks a:hover {
+	background-color: rgb(229, 220, 220);
+}
+.socialLink {
+	display: inline-block;
+	width: auto;
+	color: #333;
+	padding: 1em 0;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	-webkit-flex: 1 0 10%;
+	flex: 1 0 10%;
+
 }
