@@ -12,18 +12,28 @@
 			<h3 class='text-center'>个人设置</h3>
 		</div>
 	<div class='panel-body'>
+		<div class='avatar'>
+			<img src='/upload/{{ useravatar.avatar }}' class='img-responsive img-circle center-block userShow' alt='avatar' >
+		</div>
+
+
+
 		<form method='POST' type='text'>
 		{{ form.csrf_token }}
+
 		<div class='form-group'>
 			<label for='content-box'>说说你自己</label>
 		</div>
-			<div>
+		<div>
 		{% if user_content %}
 			<p>{{ user_content.body }}</p> <br>
 		{% endif %}
 		</div>
+		<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">点击修改</button>
+		<div class='collapse' id='collapseExample'>
+		<br>
 		<div>
-		<textarea type='text' rows='3' name='contentbox' class='form-control' id='content-box' placeholder='在这里介绍你自己'></textarea>
+				<textarea type='text' rows='3' name='contentbox' class='form-control' id='content-box' placeholder='在这里介绍你自己'></textarea>
 		</div>
 		<br>
 		<div class='signButton'>
@@ -35,8 +45,9 @@
 				{% endif %}
 			</button>
 		</div>
+		</div>
 		</form>
-
+		<br>
 		<form method='POST' class='form-inline'>
 		{{form_media.csrf_token}}
 		<div class='form-group'>
@@ -63,6 +74,15 @@
 				{% endif %}
 			</button>
 		</div>
+	</form>
+	<form method='post' enctype='multipart/form-data' action='/accounts/settings'>
+		<label for='avatar_set'>修改头像</label>
+		<input type='file' name='file' id='avatar_set'>
+		<br>
+		<div class='signButton'>
+			<button type='submit' class='btn btn-primary'>确认修改</button>
+		</div>
+
 	</form>
 	</div>
 	</div>

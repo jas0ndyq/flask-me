@@ -10,7 +10,7 @@
 	{% if user_content %}
 	<div class='panel-body'>
 		<div class='avatar'>
-			<img src='/static/avatar/default.jpg' class='img-responsive img-circle center-block userShow' alt='avatar' >
+			<img src='/upload/{{ user_avatar }}' class='img-responsive img-circle center-block userShow' alt='avatar' >
 		</div>
 		<h1 class='text-center usernameShow'>{{ user_content.user_name }}</h3>
 			<br>
@@ -21,8 +21,7 @@
 		<div class='socialLinks'>
 			<a href='http://weibo.com/{{ user_media.weibo }}' class='socialLink'><i class='fa icon-weibo'>微博</i></a>
 			<a href='http://douban.com/people/{{ user_media.douban }}' class='socialLink'><i class='fa icon-weibo'>豆瓣</i></a>
-			
-			
+			<p class='socialLink'><i class='fa icon-weixin'>微信</i></p>
 		</div>
 		{% endif %}		
 

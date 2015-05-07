@@ -6,7 +6,7 @@ class User(db.Model):
 	username = db.Column(db.String(80), unique=True)
 	password = db.Column(db.String(8))
 	email = db.Column(db.String(120), unique=True)
-
+	avatar = db.Column(db.String(), default='default.jpg')
 	def __init__(self, username, email, password):
 		self.username = username
 		self.email = email

@@ -1,9 +1,12 @@
 from flask_wtf import Form
 from wtforms import StringField, PasswordField, TextField
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms.validators import DataRequired, Email
 
 from util.validators import Unique
 from models import User
+
+
 
 class MyForm(Form):
 	name = StringField('Name', validators=[DataRequired(),
@@ -24,3 +27,5 @@ class MediaForm(Form):
 	weibo = StringField('Content')
 	weixin = StringField('Content')
 	douban = StringField('Content')
+
+

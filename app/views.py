@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-
-from flask import render_template, redirect, url_for
+import os
+from flask import render_template, redirect, url_for, request, send_from_directory
 from app import app, db
 from models import User, Content, Media
 from forms import MyForm, UsernamePasswordForm, ContentForm, MediaForm
 from flask.ext.login import login_user, logout_user, login_required, current_user
-
+from werkzeug import secure_filename
 
 
 @app.route('/')
@@ -57,6 +57,11 @@ def create_account():
 
 	return render_template('accounts/create.html', form=form)
 
+ALLOWED_EXTENSIONS = app.config['ALLOWED_EXTENSIONS']
+UPLOAD_FOLDER = app.config['UPLOAD_FOLDER']
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 @app.route('/accounts/settings', methods=['POST', 'GET'])
 @login_required
 def show():
@@ -100,15 +105,43 @@ def show():
 			user_media.douban = form_media.douban.data
 			db.session.commit()
 			
-
-
-
 		return redirect('/accounts/settings')
-	return render_template('/accounts/settings.html', form=form, user_content=user_content, form_media=form_media, user_media=user_media)
 
+	useravatar = User.query.filter_by(username=username).first()
+	if request.method == 'POST':
+		global file
+		file = request.files['file']
+		useravatar.avatar = secure_filename(file.filename)
+		db.session.commit()
+		if file and allowed_file(file.filename):
+			global filename
+			filename = secure_filename(file.filename)
+			file.save(os.path.join(UPLOAD_FOLDER, filename))
+			avatar_url = url_for('uploaded_file', filename=filename)
+			return redirect('accounts/settings')
+	return render_template('/accounts/settings.html',
+		form=form,
+		user_content=user_content,
+		form_media=form_media,
+		user_media=user_media,
+		file=file,
+		useravatar=useravatar,
+		)
+
+
+@app.route('/upload/<filename>')
+def uploaded_file(filename):
+
+    	return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
 
 @app.route('/user/<username>', methods=['GET'])
 def show_user(username):
+	user = User.query.filter_by(username=username).first()
+	user_avatar = user.avatar
+	if user == None:
+		return redirect('/404')
 	user_media = Media.query.filter_by(user_name=username).first()
 	user_content = Content.query.filter_by(user_name=username).order_by(Content.pub_date.desc()).first()
-	return render_template('/user.html', user_content=user_content, user_media=user_media, username=username)	
+	return render_template('/user.html', user_content=user_content, user_media=user_media, username=username, user_avatar=user_avatar)	
+
