@@ -15,14 +15,29 @@
 		<div class='avatar'>
 			<img src='/upload/{{ useravatar.avatar }}' class='img-responsive img-circle center-block userShow' alt='avatar' >
 		</div>
+		<div class='userSetUper'>
+		<i class="fa icon-magnet" data-toggle="collapse" data-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseExample">
+			<span>修改头像</span>
+		</i>
+		<div class='collapse' id='collapseAvatar'>
+		<div>
+			<form method='post' enctype='multipart/form-data' action='/accounts/settings'>
+			<input type='file' name='file' id='avatar_set'>
+			<br>
+			<div class='signButton'>
+				<button type='submit' class='btn btn-primary'>确认修改</button>
+			</div>
+			</form>
+		</div>
+		</div>
+		</div>
 
-
-
+		<div class='userSet'>
+		<p class='titleSet'>说说你自己</p>
 		<form method='POST' type='text'>
 		{{ form.csrf_token }}
-
 		<div class='form-group'>
-			<label for='content-box'>说说你自己</label>
+			<label for='content-box'></label>
 		</div>
 		<div>
 		{% if user_content %}
@@ -48,20 +63,31 @@
 		</div>
 		</form>
 		<br>
+		<p class='titleSet'>社交链接</p>
 		<form method='POST' class='form-inline'>
 		{{form_media.csrf_token}}
-		<div class='form-group'>
-			<label for='content-weibo'>微博</label>
-			http://weibo.com/{{ form_media.weibo(type='text', class_='form-control_media', id='content-weibo', placeholder='pyyw') }}
+		<div class='form-group formMedia'>
+			<label for='content-weibo' class='labelMedia'><i class='fa icon-weibo'></i></label>
+			<span class='inner-right'>http://weibo.com/{{ form_media.weibo(type='text', class_='form-control_media', id='content-weibo', placeholder='pyyw') }}</span>
 		</div>
 		<br><br>
-		<div class='form-group'>
-			<label for='content-douban'>豆瓣</label>
+		<div class='form-group formMedia'>
+			<label for='content-twitter' class='labelMedia'><i class='fa icon-twitter'></i></label>
+			http://www.twitter.com/{{ form_media.twitter(type='text', class_='form-control_media', id='content-twitter', placeholder='jasondyq') }}
+		</div>
+		<br><br>
+		<div class='form-group formMedia'>
+			<label for='content-zhihu' class='labelMedia'><i class="icon iconfont">&#xe6d1;</i></label>
+			<span class='inner-right'>http://www.zhihu.com/people/{{ form_media.zhihu(type='text', class_='form-control_media', id='content-zhihu', placeholder='zhihu') }}</span>
+		</div>
+		<br><br>
+		<div class='form-group formMedia'>
+			<label for='content-douban' class='labelMedia'><i class='icon iconfont'>&#xe633;</i></label>
 			http://www.douban.com/people/{{ form_media.douban(type='text', class_='form-control_media', id='content-douban', placeholder='123456') }}
 		</div>
 		<br><br>
-		<div class='form-group'>
-			<label for='content-weixin'>微信号，请搜索</label>
+		<div class='form-group formMedia'>
+			<label for='content-weixin' class='labelMedia'><i class='icon iconfont'>&#xe628;</i></label>
 			{{ form_media.weixin(type='text', class_='form-control_media', id='content-weixin', placeholder='loverose1029') }}
 		</div>
 		<br><br>
@@ -75,15 +101,8 @@
 			</button>
 		</div>
 	</form>
-	<form method='post' enctype='multipart/form-data' action='/accounts/settings'>
-		<label for='avatar_set'>修改头像</label>
-		<input type='file' name='file' id='avatar_set'>
-		<br>
-		<div class='signButton'>
-			<button type='submit' class='btn btn-primary'>确认修改</button>
-		</div>
-
-	</form>
+	
+	</div>
 	</div>
 	</div>
 	</div>

@@ -49,12 +49,18 @@ class Media(db.Model):
 	weibo = db.Column(db.String)
 	weixin = db.Column(db.String)
 	douban = db.Column(db.String)
+	twitter = db.Column(db.String)
+	github = db.Column(db.String)
+	zhihu = db.Column(db.String)
 	user = db.relationship('User', backref=db.backref('pose_set2', lazy='dynamic'))
 	user_name = db.Column(db.String, db.ForeignKey('user.username'))
 
-	def __init__(self, weibo, weixin, douban, user):
+	def __init__(self, weibo, weixin, douban, twitter, github, zhihu, user):
 		self.weibo = weibo
 		self.weixin = weixin
 		self.douban = douban
+		self.twitter = twitter
+		self.github = github
+		self.zhihu = zhihu
 		self.user = user
 

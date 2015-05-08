@@ -27,5 +27,8 @@ class MediaForm(Form):
 	weibo = StringField('Content')
 	weixin = StringField('Content')
 	douban = StringField('Content')
+	twitter = StringField('Content')
+	github = StringField('Content')
+	zhihu = StringField('Content')
 
 

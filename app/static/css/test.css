@@ -1,8 +1,8 @@
 body {
 	background-color: #f0f0f0;
+	font-family: Karla,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif
 
 }
-
 
 .row {
 	margin-top: 50px;
@@ -63,7 +63,7 @@ p.userBody {
 	padding-bottom: 30px;
 }
 .form-control_media {
-	    border-top-width: 0px;
+	border-top-width: 0px;
     border-right-width: 0px;
     border-bottom-width: 1px;
     border-left-width: 0px;
@@ -75,6 +75,7 @@ p.userBody {
     border-right-color: #000000;
     border-bottom-color: #000000;
     border-left-color: #000000;
+    width: 6em;
 
 }
 .form-control_media:focus {
@@ -111,4 +112,36 @@ img.userShow {
 	-webkit-flex: 1 0 10%;
 	flex: 1 0 10%;
 
+}
+
+.userSet {
+	max-width: 480px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.userSetUper {
+	max-width: 380px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 1em;
+}
+.labelMedia {
+	width: 20%;
+	font-size: 20px;
+}
+.titleSet {
+	text-align: center;
+	margin-top: 2em;
+	font-size: 1.5em;
+}
+.inner-right {
+	width: 80%;
+}
+.formMedia {
+	width: 100%;
+}
+.userContent {
+	max-width: 480px;
+	margin-left: auto;
+	margin-right: auto
 }

@@ -92,6 +92,9 @@ def show():
 				weibo = form_media.weibo.data,
 				weixin = form_media.weixin.data,
 				douban = form_media.douban.data,
+				twitter = form_media.twitter.data,
+				github = form_media.github.data,
+				zhihu = form_media.zhihu.data,
 				)
 			db.session.add(media_setting)
 			db.session.commit()
@@ -104,7 +107,15 @@ def show():
 		if form_media.douban.data != '' and user_media != None:
 			user_media.douban = form_media.douban.data
 			db.session.commit()
-			
+		if form_media.twitter.data != '' and user_media != None:
+			user_media.twitter = form_media.twitter.data
+			db.session.commit()
+		if form_media.github.data != '' and user_media != None:
+			user_media.github = form_media.github.data
+			db.session.commit()
+		if form_media.zhihu.data != '' and user_media != None:
+			user_media.zhihu = form_media.zhihu.data
+			db.session.commit()
 		return redirect('/accounts/settings')
 
 	useravatar = User.query.filter_by(username=username).first()
@@ -143,5 +154,10 @@ def show_user(username):
 		return redirect('/404')
 	user_media = Media.query.filter_by(user_name=username).first()
 	user_content = Content.query.filter_by(user_name=username).order_by(Content.pub_date.desc()).first()
-	return render_template('/user.html', user_content=user_content, user_media=user_media, username=username, user_avatar=user_avatar)	
+	return render_template('/user.html',
+		user_content=user_content,
+		user_media=user_media,
+		username=username,
+		user_avatar=user_avatar,
+		)
 
