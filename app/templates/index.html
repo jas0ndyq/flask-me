@@ -2,23 +2,49 @@
 
 <head>
 	<title>Me-首页</title>
+
 </head>
 
 
 {% block content %}
 <div class='container myContent'>
 	{% if index_show %}
-	{% for i in index_show %}
+	{% for piece in pieces_data %}
+
 	<div class='row'>
+
 	<div class='panel panel-primary myPanel'>
 		<div class='panel-heading'>
-			<h3 class='text-center'>{{ i.user_name }}</h3>
+			<h3 class='text-center'>{{ piece.date_string }}</h3>
 		</div>
-		<div class='panel-body indexPanel'>{{ i.body }}</div>
+		<div class='panel-body indexPanel'>
+			{% for i in piece.pieces %}
+				<div>{{ i.id }}</div>				
+			{% endfor %}
+		</div>
 	</div>
 	</div>
 	{% endfor %}
+	<div id='test' class='text-center'></div>
+	<div class="text-center loading-flag">
+         	<button>加载更多</button>
+      	</div>
 	{% endif %}
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("button").click(function(){
+    $.post("/json",
+    {
+    	'start': '{{ start_date.format('YYYY-MM-DD') }}',
+    	'days': 2,
+    },
+    function(result){
+      $('#test').append(result);
+    });
+  });
+});
+</script>
 {% endblock %}
 </div>
 

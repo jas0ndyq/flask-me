@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from app import db
+from datetime import datetime, date, timedelta
 import time
 
 class User(db.Model):
@@ -30,19 +32,33 @@ class User(db.Model):
 class Content(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	body = db.Column(db.Text)
-	pub_date = db.Column(db.String(80))
+	pub_date = db.Column(db.DateTime, default=datetime.now)
 	user = db.relationship('User', backref=db.backref('pose_set', lazy='dynamic'))
 	user_name = db.Column(db.String, db.ForeignKey('user.username'))
 
 	def __init__(self, body, user, pub_date=None):
 		self.body = body
 		self.user = user
-		if pub_date == None:
-			pub_date = time.time()
 		self.pub_date = pub_date
 
 	def __repr__(self):
 		return '<Content %r>' % self.body
+
+	@staticmethod
+	def get_content_by_date(day):
+		pieces = Content.query.filter(db.func.date(Content.pub_date) == day).order_by(Content.pub_date.desc())
+		if day == date.today():
+			date_string = '今天'
+		elif day == date.today() - timedelta(days=1):
+			date_string = '昨天'
+		else:
+			date_string = "%s年%s月%s日" % (day.year, day.month, day.day)
+
+		return {
+			'date': day,
+			'date_string': date_string,
+			'pieces': pieces,
+		}
 
 class Media(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)

@@ -1,18 +1,35 @@
 # -*- coding: utf-8 -*-
 import os
-from flask import render_template, redirect, url_for, request, send_from_directory
+from flask import render_template, redirect, url_for, request, send_from_directory,get_template_attribute, json
 from app import app, db
 from models import User, Content, Media
 from forms import MyForm, UsernamePasswordForm, ContentForm, MediaForm
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from werkzeug import secure_filename
 
+import sys
+reload(sys) # Python2.5 初始化后会删除 sys.setdefaultencoding 这个方法，我们需要重新载入   
+sys.setdefaultencoding('utf-8')
+import time
+import datetime
+from datetime import date, timedelta
 
 @app.route('/')
 def index():
 	index_show = Content.query.order_by(Content.pub_date.desc()).all()
 
-	return render_template('index.html', index_show=index_show)
+	pieces_data = []
+	start_date = None
+	for delta in xrange(0, 5):
+		target_day = date.today() - timedelta(days=delta)
+		pieces_data.append(Content.get_content_by_date(target_day))
+		start_date = target_day.strftime('%Y-%m-%d')
+		
+	return render_template('index.html',
+		index_show=index_show,
+		pieces_data = pieces_data,
+		start_date = start_date,
+		)
 
 
 @app.route('/signin', methods=['GET', 'POST'])
@@ -161,3 +178,17 @@ def show_user(username):
 		user_avatar=user_avatar,
 		)
 
+@app.route('/json', methods=['POST'])
+def pieces_by_date():
+	start = request.form.get('start')
+	if start:
+		start_date = datetime.datetime.strptime(start, '%Y-%m-%d').date()
+	else:
+		start_date = date.today() - timedelta(days=3)
+	days = request.form.get('days', 2, type=int)
+	html = ''
+	for i in xrange(days):
+		target_day = start_date - timedelta(days=i)
+		pieces_data = Content.get_content_by_date(target_day)
+		html += 'test<br/>'
+	return html
