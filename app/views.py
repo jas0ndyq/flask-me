@@ -29,6 +29,7 @@ def index():
 		index_show=index_show,
 		pieces_data = pieces_data,
 		start_date = start_date,
+		timedelta = timedelta
 		)
 
 
@@ -190,5 +191,6 @@ def pieces_by_date():
 	for i in xrange(days):
 		target_day = start_date - timedelta(days=i)
 		pieces_data = Content.get_content_by_date(target_day)
-		html += 'test<br/>'
+		test = get_template_attribute('other.html', 'test')
+		html += test(pieces_data)
 	return html

@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% from "other.html" import test %}
 
 <head>
 	<title>Me-首页</title>
@@ -8,22 +9,12 @@
 
 {% block content %}
 <div class='container myContent'>
+
 	{% if index_show %}
 	{% for piece in pieces_data %}
 
-	<div class='row'>
-
-	<div class='panel panel-primary myPanel'>
-		<div class='panel-heading'>
-			<h3 class='text-center'>{{ piece.date_string }}</h3>
-		</div>
-		<div class='panel-body indexPanel'>
-			{% for i in piece.pieces %}
-				<div>{{ i.id }}</div>				
-			{% endfor %}
-		</div>
-	</div>
-	</div>
+	{{ test(piece) }}
+	
 	{% endfor %}
 	<div id='test' class='text-center'></div>
 	<div class="text-center loading-flag">
@@ -32,15 +23,33 @@
 	{% endif %}
 
 <script type="text/javascript">
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+var myDate=new Date()
+myDate.setDate(myDate.getDate()-5)
 $(document).ready(function(){
   $("button").click(function(){
     $.post("/json",
     {
-    	'start': '{{ start_date.format('YYYY-MM-DD') }}',
+    	'start': myDate.Format('yyyy-MM-dd'),
     	'days': 2,
     },
     function(result){
       $('#test').append(result);
+      myDate.setDate(myDate.getDate()-2)
     });
   });
 });
