@@ -6,9 +6,16 @@
 			<h3 class='text-center'>{{ var.date_string }}</h3>
 		</div>
 		<div class='panel-body indexPanel'>
+
+			{% if var.pieces.first() != None%}
 			{% for i in var.pieces %}
-				<div>{{ i.id }}</div>				
+				<div>{{ i.body }}</div>
+				<div><b>{{ i.user_name }}</b></div>
+				<br />
 			{% endfor %}
+			{% else %}
+			<div class='text-center'>None</div>
+			{% endif %}
 		</div>
 	</div>
 </div>
