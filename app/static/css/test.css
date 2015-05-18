@@ -107,6 +107,7 @@ img.userIndexShow {
 .socialLinks {
 	background-color: rgba(221,221,221,.2);
 	text-align: center;
+	margin-top: 1.5em;
 	display: -webkit-flex;
   	display: flex;
 }

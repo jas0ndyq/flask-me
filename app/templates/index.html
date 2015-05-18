@@ -15,9 +15,10 @@
 	{{ test(piece) }}
 	{% endfor %}
 	<div id='test' class='text-center'></div>
-	<div class="text-center loading-flag">
-         	<button type='button' class='btn btn-primary'>加载更多</button>
+	<div class="text-center loading-flag" id='flag'>
+         	<button type='button' class='btn btn-primary' id='debug'>加载更多</button>
       	</div>
+        <div id='noMore' class='text-center'></div>
 	{% endif %}
 
 <script type="text/javascript">
@@ -37,6 +38,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
     return fmt;
 }
 var myDate=new Date()
+var targetDate = new Date(2015, 4, 7)
 myDate.setDate(myDate.getDate()-5)
 $(document).ready(function(){
   $("button").click(function(){
@@ -48,6 +50,11 @@ $(document).ready(function(){
     function(result){
       $('#test').append(result);
       myDate.setDate(myDate.getDate()-2)
+      if (myDate < targetDate) {
+      document.getElementById("debug").innerHTML = 'None';
+      $('#flag').remove();
+      document.getElementById('noMore').innerHTML = 'No More Content'
+      }
     });
   });
 });

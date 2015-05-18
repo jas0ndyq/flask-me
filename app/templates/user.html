@@ -12,8 +12,7 @@
 		<div class='avatar'>
 			<img src='/upload/{{ user.avatar }}' class='img-responsive img-circle center-block userShow' alt='avatar' >
 		</div>
-		<h1 class='text-center usernameShow'>{{ user_content.user_name }}</h3>
-			<br>
+		<h1 class='text-center usernameShow'>{{ user_content.user_name }}</h1>
 		{% if user_media %}
 		<div class='socialLinks'>
 			{% if user_media.weibo %}
@@ -33,11 +32,9 @@
 			{% endif %}
 		</div>
 		{% endif %}	
-		<br>
 		<div class='userContent'>
 		<p class='titleSet'>TA这样介绍自己</p>
 		<p class='userBody'>{{ user_content.body }}</p>
-		<span class='userZan'><i class='fa icon-angle-up'></i></span>
 		</div>
 		<div>
 			<p class='titleSet'>TA的链接</p>
@@ -51,10 +48,14 @@
 	{% endif %}
 
 	</div>
+	{% if current_user.is_authenticated() %}
 	<div class='panelFoot'>
 		<button type="button" class="btn btn-danger"><i class='fa icon-thumbs-up'>推荐</i></button>
 		<button type='button' class='btn btn-primary'><i class='fa icon-share-alt'>分享</i></button>
 	</div>
+	{% else %}
+	<div>login in</div>
+	{% endif %}
 </div>
 </div>
 	<br>
