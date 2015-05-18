@@ -166,7 +166,7 @@ def uploaded_file(filename):
 
 @app.route('/user/<username>', methods=['GET'])
 def show_user(username):
-	user = User.query.filter_by(username=username).first()
+	user = User.query.filter_by(username=username).first_or_404()
 	user_avatar = user.avatar
 	if user == None:
 		return redirect('/404')
@@ -176,7 +176,7 @@ def show_user(username):
 		user_content=user_content,
 		user_media=user_media,
 		username=username,
-		user_avatar=user_avatar,
+		user = user,
 		)
 
 @app.route('/json', methods=['POST'])

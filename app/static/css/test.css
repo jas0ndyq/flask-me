@@ -41,7 +41,8 @@ body {
 
 }
 .indexPanel {
-	height: 220px;
+	height: auto;
+	min-height: 10em;
 	border-color: white;
 }
 
@@ -53,6 +54,7 @@ body {
 .panel-body {
 	display: block;
 	border-color: white;
+	padding: 0;
 }
 
 .signButton {
@@ -85,12 +87,25 @@ img.userShow {
 	width: 120px;
 	height: 120px;
 }
+img.userIndexShow {
+	width: 3.5em;
+	height: 3.5em;
+	display: inline;
+}
+.avatar {
+	padding: 1.5em;
+}
+.userIndexName {
+	display: inline;
+	margin-left: 0.5em;
+	font-size: 1.5em;
+}
+
 .usernameShow {
 	color: #4a90e2;
 }
 .socialLinks {
 	background-color: rgba(221,221,221,.2);
-	margin: 0 -1em;
 	text-align: center;
 	display: -webkit-flex;
   	display: flex;
@@ -145,3 +160,20 @@ img.userShow {
 	margin-left: auto;
 	margin-right: auto
 }
+.indexName {
+	margin-bottom: 1.5em;
+}
+.indexContent {
+	border-bottom: 1px  gray;
+	display: block;
+	padding: 1.5em;
+}
+
+.indexSelf {
+	color: #777;
+	line-height: 1.7em;
+	font-size: 1.2em;
+}
+.indexContent:hover {
+		background-color: #f1f1f1;
+	};

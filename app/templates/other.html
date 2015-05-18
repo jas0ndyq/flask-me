@@ -9,9 +9,13 @@
 
 			{% if var.pieces.first() != None%}
 			{% for i in var.pieces %}
-				<div>{{ i.body }}</div>
-				<div><b>{{ i.user_name }}</b></div>
-				<br />
+			<div class='indexContent'>
+			<div class='indexName'>
+				<img src='/upload/{{ i.user.avatar }}' class='img-responsive img-circle userIndexShow' alt='avatar' >
+				<p class='userIndexName'>{{ i.user_name }}</p>
+			</div>
+				<div class='indexSelf'>{{ i.body }}</div>
+			</div>
 			{% endfor %}
 			{% else %}
 			<div class='text-center'>None</div>
