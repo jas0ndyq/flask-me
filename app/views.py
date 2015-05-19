@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from flask import render_template, redirect, url_for, request, send_from_directory,get_template_attribute, json
+from flask import render_template, redirect, url_for, request, send_from_directory,get_template_attribute, json, session
 from app import app, db
 from models import User, Content, Media
 from forms import MyForm, UsernamePasswordForm, ContentForm, MediaForm
@@ -194,3 +194,14 @@ def pieces_by_date():
 		test = get_template_attribute('other.html', 'test')
 		html += test(pieces_data)
 	return html
+
+@app.route('/recommend/<int:id>', methods=['POST'])
+@login_required
+def vote(id):
+	content = Content.query.get_or_404(id)
+	vote_stat = request.form.get('vote')
+	if int(vote_stat) == 1:
+		content.vote_count += 1
+		db.session.commit()
+
+	return str(content.vote_count)

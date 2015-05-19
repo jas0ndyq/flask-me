@@ -1,3 +1,5 @@
+<!doctype html>
+
 	{% macro test(var) %}
 
 	<div class='row'>
@@ -13,6 +15,24 @@
 			<div class='indexName'>
 				<img src='/upload/{{ i.user.avatar }}' class='img-responsive img-circle userIndexShow' alt='avatar' >
 				<p class='userIndexName'>{{ i.user_name }}</p>
+				<span class=" indexVote">
+					<i class='fa icon-thumbs-up'>
+					    <p id='voteStat'>{{ i.vote_count }}</p>
+					</i>
+				</span>
+				<script type="text/javascript">
+					$(document).ready(function(){
+  						$(".indexVote").click(function(){
+    							$.post("/recommend/{{i.id}}",
+    								{
+   									   'vote': 1
+    									},
+    							function(result){
+     				 			document.getElementById('voteStat').innerHTML=result
+    							});
+ 			 			});
+					});
+				</script>
 			</div>
 				<div class='indexSelf'>{{ i.body }}</div>
 			</div>

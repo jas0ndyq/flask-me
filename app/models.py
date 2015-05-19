@@ -35,6 +35,7 @@ class Content(db.Model):
 	pub_date = db.Column(db.DateTime, default=datetime.now)
 	user = db.relationship('User', backref=db.backref('pose_set', lazy='dynamic'))
 	user_name = db.Column(db.String, db.ForeignKey('user.username'))
+	vote_count = db.Column(db.Integer, default=0)
 
 	def __init__(self, body, user, pub_date=None):
 		self.body = body
