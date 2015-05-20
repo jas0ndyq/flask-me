@@ -2,7 +2,7 @@
 import os
 from flask import render_template, redirect, url_for, request, send_from_directory,get_template_attribute, json, session
 from app import app, db
-from models import User, Content, Media
+from models import User, Content, Media, VoteStat
 from forms import MyForm, UsernamePasswordForm, ContentForm, MediaForm
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from werkzeug import secure_filename
@@ -199,9 +199,26 @@ def pieces_by_date():
 @login_required
 def vote(id):
 	content = Content.query.get_or_404(id)
+	vote = VoteStat.query.filter_by(content_id=id, user_id=current_user.id).first()
 	vote_stat = request.form.get('vote')
+	j = 0
 	if int(vote_stat) == 1:
-		content.vote_count += 1
-		db.session.commit()
+		if vote:
+			content.vote_count -= 1
+			db.session.delete(vote)
+			db.session.commit()
+			j = 2
 
+
+		else:
+			content.vote_count += 1
+			db.session.commit()
+			add_vote = VoteStat(
+				user_id=current_user.id,
+				content_id = id
+				)
+			db.session.add(add_vote)
+			db.session.commit()
+			j = 3
+	#return str(content.vote_count)
 	return str(content.vote_count)

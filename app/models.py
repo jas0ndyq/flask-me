@@ -81,3 +81,14 @@ class Media(db.Model):
 		self.zhihu = zhihu
 		self.user = user
 
+class VoteStat(db.Model):
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	create_at = db.Column(db.DateTime, default=datetime.now)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	user = db.relationship('User', backref=db.backref('voted_pieces',
+                                                      lazy='dynamic',
+                                                      order_by='desc(VoteStat.create_at)'))
+	content_id = db.Column(db.Integer, db.ForeignKey('content.id'))
+	content = db.relationship('Content', backref=db.backref('voted_content',
+				lazy='dynamic',
+				order_by='asc(VoteStat.create_at)'))
