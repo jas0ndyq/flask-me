@@ -183,9 +183,13 @@ img.userIndexShow {
 	cursor: pointer;
 	float: right;
 	font-size: .6em;
-	width: 4em;
+	width: 5em;
 	text-align: center;
+	height: 2.7em;
 	padding: .5em 0;
 	border-radius: 2px;
 	border: 1px solid #777;
+}
+.voteStyle {
+	display: inline-block;
 }

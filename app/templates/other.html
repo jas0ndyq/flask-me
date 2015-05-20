@@ -15,9 +15,9 @@
 			<div class='indexName'>
 				<img src='/upload/{{ i.user.avatar }}' class='img-responsive img-circle userIndexShow' alt='avatar' >
 				<p class='userIndexName'>{{ i.user_name }}</p>
-				<span class=" indexVote" id='{{ i.id }}'>
-					<i class='fa icon-thumbs-up'>
-					    <p id='{{i.pub_date}}'>{{ i.vote_count }}</p>
+				<span class="indexVote" id='{{ i.id }}'>
+					<i class='fa icon-thumbs-up voteStyle'>
+					    <p id='vote{{i.id}}' class='voteStyle'>{{ i.vote_count }}</p>
 					</i>
 				</span>
 				
@@ -25,6 +25,7 @@
 				<div class='indexSelf'>{{ i.body }}</div>
 			</div>
 						<script type="text/javascript">
+						var x = 0
 					$(document).ready(function(){
   						$("#{{i.id}}").click(function(){
     							$.post("/recommend/{{i.id}}",
@@ -32,10 +33,18 @@
    									   'vote': 1
     									},
     							function(result){
-     				 			document.getElementById('{{i.pub_date}}').innerHTML=result
-    							});
+     				 			document.getElementById('vote{{i.id}}').innerHTML=result.count;
+
+     				 			if (result.result == 1){
+     				 				document.getElementById('{{i.id}}').style.color = 'red'
+     				 			}
+     				 			else{
+     				 				document.getElementById('{{i.id}}').style.color = 'black'
+     				 			}
+    							},'json');
  			 			});
 					});
+
 				</script>
 			{% endfor %}
 

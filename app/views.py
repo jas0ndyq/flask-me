@@ -208,7 +208,7 @@ def vote(id):
 			db.session.delete(vote)
 			db.session.commit()
 			j = 2
-
+			return json.dumps({'result': 0, 'count': content.vote_count})
 
 		else:
 			content.vote_count += 1
@@ -220,5 +220,5 @@ def vote(id):
 			db.session.add(add_vote)
 			db.session.commit()
 			j = 3
+			return json.dumps({'result': 1, 'count': content.vote_count})
 	#return str(content.vote_count)
-	return str(content.vote_count)
