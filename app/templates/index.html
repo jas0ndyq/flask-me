@@ -12,8 +12,15 @@
 	{% if index_show %}
 	{% for piece in pieces_data %}
 	{{ test(piece) }}
-
+        <script type="text/javascript">
+        {% if vote_stat %}
+        {% for j in vote_stat %}
+        document.getElementById('{{j.content.id}}').style.color = 'red'
+        {% endfor %}
+        {% endif %}
+        </script>
 	{% endfor %}
+
 	<div id='test' class='text-center'></div>
 	<div class="text-center loading-flag" id='flag'>
          	<button type='button' class='btn btn-primary' id='debug'>加载更多</button>
@@ -65,7 +72,6 @@ $(document).ready(function(){
               })
             })
 {% endif %}
-
 
 
 </script>

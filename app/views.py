@@ -17,7 +17,9 @@ from datetime import date, timedelta
 @app.route('/')
 def index():
 	index_show = Content.query.order_by(Content.pub_date.desc()).all()
-
+	vote_stat = ''
+	if current_user.is_authenticated():
+		vote_stat = VoteStat.query.filter_by(user_id=current_user.id).all()
 	pieces_data = []
 	start_date = None
 	for delta in xrange(0, 5):
@@ -29,7 +31,8 @@ def index():
 		index_show=index_show,
 		pieces_data = pieces_data,
 		start_date = start_date,
-		timedelta = timedelta
+		timedelta = timedelta,
+		vote_stat = vote_stat
 		)
 
 
@@ -172,11 +175,15 @@ def show_user(username):
 		return redirect('/404')
 	user_media = Media.query.filter_by(user_name=username).first()
 	user_content = Content.query.filter_by(user_name=username).order_by(Content.pub_date.desc()).first()
+	vote_stat = ''
+	if current_user.is_authenticated() and user_content:
+		vote_stat = VoteStat.query.filter_by(user_id=current_user.id, content_id=user_content.id).first()
 	return render_template('/user.html',
 		user_content=user_content,
 		user_media=user_media,
 		username=username,
 		user = user,
+		vote_stat = vote_stat
 		)
 
 @app.route('/json', methods=['POST'])

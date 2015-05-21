@@ -193,3 +193,29 @@ img.userIndexShow {
 .voteStyle {
 	display: inline-block;
 }
+#userVote {
+	padding: .5em 1em;
+  	margin: -.4em -1em -.4em 1em;
+  	background-color: #DB6662;
+  	font-size: 16px;
+}
+.btn-danger {
+	background-color: #f4726d;
+	border: none;
+}
+.btn-danger:hover {
+	background-color: #F26762;
+	border: none;
+}
+.btn-danger:focus {
+	background-color: #F26762;
+	border-color: none;
+}
+.btn-danger:visited {
+	background-color: #F26762;
+	border: none;
+}
+.btn-danger:visited {
+	background-color: #F26762;
+	border: none;
+}

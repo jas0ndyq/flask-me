@@ -50,14 +50,42 @@
 	{% endif %}
 
 	</div>
-	{% if current_user.is_authenticated() %}
 	<div class='panelFoot'>
-		<button type="button" class="btn btn-danger"><i class='fa icon-thumbs-up'>推荐</i></button>
-		<button type='button' class='btn btn-primary'><i class='fa icon-share-alt'>分享</i></button>
+		<button type="button" class="btn btn-danger" id='btnVote'><i class='fa icon-thumbs-up' id='iVote'>   推荐</i><span id='userVote'>{{user_content.vote_count}}</span></button>
+		<button type='button' class='btn btn-primary'><i class='fa icon-share-alt'>   分享</i></button>
+					<script type="text/javascript">
+
+					$(document).ready(function(){
+  						$("#btnVote").click(function(){
+						{% if current_user.is_authenticated() %}
+
+    							$.post("/recommend/{{user_content.id}}",
+    								{
+   									   'vote': 1
+    									},
+    							function(result){
+     				 			document.getElementById('userVote').innerHTML=result.count;
+							if (result.result == 1){
+								document.getElementById('iVote').innerHTML = '   我已推荐哒'
+							}
+							else{
+								document.getElementById('iVote').innerHTML = '   推荐'
+
+							}
+
+    							},'json');
+    					{% else %}
+						self.location = '/signin'
+					{% endif %}
+ 			 			});
+					});
+					{% if vote_stat %}
+					document.getElementById('iVote').innerHTML = '   我已推荐哒'
+					{% endif %}
+
+				</script>
 	</div>
-	{% else %}
-	<div>login in</div>
-	{% endif %}
+
 </div>
 </div>
 	<br>
