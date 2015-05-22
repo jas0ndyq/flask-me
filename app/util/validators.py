@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from wtforms.validators import ValidationError
 
 class Unique(object):
@@ -10,3 +11,4 @@ class Unique(object):
         check = self.model.query.filter(self.field == field.data).first()
         if check:
             raise ValidationError(self.message)
+

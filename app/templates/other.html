@@ -12,9 +12,16 @@
 			{% for i in var.pieces %}
 			<div class='indexContent'>
 			<div class='indexName'>
-				<img src='/upload/{{ i.user.avatar }}' class='img-responsive img-circle userIndexShow' alt='avatar' >
-				<p class='userIndexName'>{{ i.user_name }}</p>
-
+				<a href='/user/{{i.user_name}}' id='indexUrl'><img src='/upload/{{ i.user.avatar }}' class='img-responsive img-circle userIndexShow' alt='avatar' ></a>
+				<a href='/user/{{i.user_name}}'  id='indexUrl'>
+				<p class='userIndexName'>
+					{% if i.user.nickname %}
+						{{i.user.nickname}}
+					{% else %}
+						{{ i.user_name }}
+					{% endif %}
+					</p>
+				</a>
 				<span class="indexVote" id='{{ i.id }}'>
 					<i class='fa icon-thumbs-up voteStyle'>
 					    <p id='vote{{i.id}}' class='voteStyle'>{{ i.vote_count }}</p>

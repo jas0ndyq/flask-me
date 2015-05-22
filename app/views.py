@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
-from flask import render_template, redirect, url_for, request, send_from_directory,get_template_attribute, json, session
+from flask import render_template, redirect, url_for, request, send_from_directory,get_template_attribute, json, session, flash
 from app import app, db
 from models import User, Content, Media, VoteStat
-from forms import MyForm, UsernamePasswordForm, ContentForm, MediaForm
+from forms import MyForm, UsernamePasswordForm, ContentForm, MediaForm, ChangePassWord
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from werkzeug import secure_filename
 
@@ -83,13 +83,35 @@ UPLOAD_FOLDER = app.config['UPLOAD_FOLDER']
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+
 @app.route('/accounts/settings', methods=['POST', 'GET'])
 @login_required
 def show():
+
+	form_pass = ChangePassWord()
+	user = User.query.filter_by(username=current_user.username).first()
+	if form_pass.validate_on_submit():
+		if form_pass.lastpass.data != user.password:
+			flash('wrong pass!')
+			return redirect('/accounts/settings')
+		else:
+			if form_pass.confirpass.data != form_pass.newpass.data:
+				flash('两次密码不一致')
+				return redirect('/accounts/settings')
+			else:
+
+				user.password = form_pass.newpass.data
+				db.session.commit()
+				flash('修改成功')
+				return redirect('/accounts/settings')
+
+
+
 	username = current_user.username
 	user_content = Content.query.filter_by(user_name=username).order_by(Content.pub_date.desc()).first()
 	form = ContentForm()
 	if form.validate_on_submit():
+
 		if user_content == None:
 			new_content = Content(
 				body = form.contentbox.data,
@@ -100,9 +122,11 @@ def show():
 		#return new_content
 			return redirect('/')
 		else:
+			user.nickname = form.nickname.data
+			db.session.commit()
 			user_content.body = form.contentbox.data
 			db.session.commit()
-			return redirect('/')
+			return redirect('/accounts/settings')
 
 	form_media = MediaForm()
 	user_media = Media.query.filter_by(user_name=username).first()
@@ -151,6 +175,12 @@ def show():
 			file.save(os.path.join(UPLOAD_FOLDER, filename))
 			avatar_url = url_for('uploaded_file', filename=filename)
 			return redirect('accounts/settings')
+
+
+
+
+
+
 	return render_template('/accounts/settings.html',
 		form=form,
 		user_content=user_content,
@@ -158,6 +188,8 @@ def show():
 		user_media=user_media,
 		file=file,
 		useravatar=useravatar,
+		form_pass =form_pass,
+		user = user
 		)
 
 

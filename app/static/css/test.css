@@ -45,7 +45,10 @@ body {
 	min-height: 10em;
 	border-color: white;
 }
-
+#indexUrl {
+	text-decoration: none;
+	color: black;
+}
 
 
 .panel-primary>.panel-heading {
@@ -142,11 +145,20 @@ img.userIndexShow {
 	margin-left: auto;
 	margin-right: auto;
 }
+.userSet1 {
+	text-align: center;
+	margin-top: 1.5em;
+	display: -webkit-flex;
+  	display: flex;
+  	padding: 0 150px;
+}
 .userSetUper {
-	max-width: 380px;
-	margin-right: auto;
-	margin-left: auto;
-	margin-top: 1em;
+	display: inline-block;
+	margin: auto
+}
+.userPassSet {
+	display: inline-block;
+	margin: auto
 }
 .labelMedia {
 	width: 20%;
@@ -209,6 +221,7 @@ img.userIndexShow {
 .btn-danger {
 	background-color: #f4726d;
 	border: none;
+	height: 34px;
 }
 .btn-danger:hover {
 	background-color: #F26762;
@@ -225,4 +238,10 @@ img.userIndexShow {
 .btn-danger:visited {
 	background-color: #F26762;
 	border: none;
+}
+.modal-header {
+	text-align: left;
+}
+#passSet {
+	text-align: left;
 }

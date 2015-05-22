@@ -6,6 +6,14 @@
 <body>
 <div class='container myContent'>
 	<div class='row'>
+	{% if get_flashed_messages() %}
+	<div class="alert alert-warning alert-dismissible" role="alert">
+  		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  		<strong>{{get_flashed_messages()[0]}}</strong>
+	</div>
+	{% endif %}
+	
+
 	{% if current_user.is_authenticated() %}
 	<div class='panel panel-primary myPanel'>
 		<div class='panel-heading'>
@@ -15,15 +23,19 @@
 		<div class='avatar'>
 			<img src='/upload/{{ useravatar.avatar }}' class='img-responsive img-circle center-block userShow' alt='avatar' >
 		</div>
+	<div class='userSet1'>
 		<div class='userSetUper'>
 		<i class="fa icon-magnet" data-toggle="collapse" data-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseExample">
-			<span  data-toggle="modal" data-target=".bs-example-modal-lg">修改头像</span>
+			<span  data-toggle="modal" data-target=".bs-example-modal-sm">修改头像</span>
 		</i>
-		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  			<div class="modal-dialog modal-lg">
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
     			<div class="modal-content">
-				<div>	
-					<span>请上传你的头像</span>
+				<div class='modal-header'>	
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span><h4>请上传你的头像</h4></span>
+				</div>
+				<div class='modal-body'>
 					<form method='post' enctype='multipart/form-data' action='/accounts/settings'>
 						<input type='file' name='file' id='avatar_set'>
 						<br>
@@ -37,6 +49,52 @@
 		</div>
 		</div>
 
+		<div class='userPassSet'>
+			<i class="fa icon-lock">
+				<span  data-toggle="modal" data-target=".bs-example-modal-sm2">修改密码</span>
+			</i>
+			<div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content">
+				<div class='modal-header'>	
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span><h4>请修改密码</h4></span>
+				</div>
+				<div class='modal-body' id='passSet'>
+					<form method='post' action=''>
+						{{form_pass.csrf_token}}
+						<div class='form-group'>
+							<label for='inputLastPass'>旧密码</label><br>
+								{{ form_pass.lastpass(type='password', class_='form-control', id='inputLastPass') }}
+						</div><br>
+						<div class='form-group'>
+							<label for='inputNewPass'>新密码</label><br>
+								{{ form_pass.newpass(type='password', class_='form-control', id='inputNewPass') }}
+						</div><br>
+						<div class='form-group'>
+							<label for='inputConfirPass'>确认密码</label><br>
+								{{ form_pass.confirpass(type='password', class_='form-control', id='inputConfirPass') }}
+						</div><br>						
+						<div class='signButton'>
+						<button type='submit' class='btn btn-primary'>确认修改</button>
+						</div>
+				</form>
+
+				</div>
+    			</div>
+  			</div>
+		</div>
+		</div>
+
+		{% if user_content %}
+		<div class='userPassSet'>
+			<i class="fa icon-user">
+				<span   data-toggle="modal" data-target=".bs-example-modal-sm1">修改介绍</span>
+			</i>
+		</div>
+		{% endif %}
+	</div>
+
 		<div class='userSet'>
 		<p class='titleSet'>说说你自己</p>
 		<form method='POST' type='text'>
@@ -44,33 +102,60 @@
 		<div class='form-group'>
 			<label for='content-box'></label>
 		</div>
-		<div>
 		{% if user_content %}
+		<div>
 			<p>{{ user_content.body }}</p> <br>
-		
 		</div>
-		<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">点击修改</button>
-		<div class='collapse' id='collapseExample'>
 		<br>
+		{% if user.nickname %}
 		<div>
-				<textarea type='text' rows='3' name='contentbox' class='form-control' id='content-box' placeholder='在这里介绍你自己'></textarea>
+			<p>{{user.nickname}}</p>
 		</div>
+		{% endif %}
+		<div class="modal fade bs-example-modal-sm1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content">
+				<div class='modal-header'>	
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span><h4>修改介绍</h4></span>
+				</div>
+				<div class='modal-body'>
+					<div class='form-group'>
+						<label for='nickname'>你的大名</label>
+						{{form.nickname(type='text', class_='form-control', id='nickname')}}
+					</div>
+					<div class='form-group'>
+						<label for='content-box'>告诉我们关于你</label>
+						<textarea type='text' rows='3' name='contentbox' class='form-control' id='content-box' placeholder='告诉我们关于你'>{{user_content.body}}</textarea>
+					</div>
+						<div class='signButton'>
+						<button type='submit' class='btn btn-primary'>确认修改</button>
+						</div>
+					
+				</div>
+    			</div>
+  			</div>
+		</div>
+
+
 		{% else %}
-		<div>
+		<div class='form-group'>
+			<label for='nickname'>你的大名</label>
+			{{form.nickname(type='text', class_='form-control', id='nickname')}}
+		</div>		
+		<div class='form-group'>
+				<label for='content-box'>告诉我们关于你</label>
 				<textarea type='text' rows='3' name='contentbox' class='form-control' id='content-box' placeholder='在这里介绍你自己'></textarea>
 		</div>
 		{% endif %}
 		<br>
+		{% if not user_content %}
 		<div class='signButton'>
 			<button type='submit' class='btn btn-primary'>
-				{% if user_content %}
-				确认修改
-				{% else %}
 				提交
-				{% endif %}
 			</button>
 		</div>
-		</div>
+		{% endif %}
 		</form>
 		<br>
 		<p class='titleSet'>社交链接</p>
@@ -118,8 +203,7 @@
 	</div>
 </div>
 	<br>
-
-
 	{% endif %}
+
 </body>
 {% endblock %}

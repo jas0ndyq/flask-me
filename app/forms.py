@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
 from flask_wtf import Form
 from wtforms import StringField, PasswordField, TextField
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms.validators import DataRequired, Email
-
 from util.validators import Unique
 from models import User
 
@@ -22,6 +22,7 @@ class UsernamePasswordForm(Form):
 	
 class ContentForm(Form):
 	contentbox = TextField('Content', validators=[DataRequired()])
+	nickname = StringField('Username', validators=[DataRequired()])
 
 class MediaForm(Form):
 	weibo = StringField('Content')
@@ -31,4 +32,8 @@ class MediaForm(Form):
 	github = StringField('Content')
 	zhihu = StringField('Content')
 
+class ChangePassWord(Form):
+	lastpass = StringField('Password', validators=[DataRequired()])
+	newpass = StringField('Password', validators=[DataRequired()])
+	confirpass = StringField('Password', validators=[DataRequired()])
 
