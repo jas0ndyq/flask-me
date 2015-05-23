@@ -4,7 +4,7 @@
 	<div class='row'>
 	<div class='panel panel-primary myPanel'>
 		<div class='panel-heading'>
-			<h3 class='text-center'>{{ var.date_string }}</h3>
+			<h4 class='text-center'>{{ var.date_string }}</h4>
 		</div>
 		<div class='panel-body indexPanel'>
 
@@ -12,8 +12,8 @@
 			{% for i in var.pieces %}
 			<div class='indexContent'>
 			<div class='indexName'>
-				<a href='/user/{{i.user_name}}' id='indexUrl'><img src='/upload/{{ i.user.avatar }}' class='img-responsive img-circle userIndexShow' alt='avatar' ></a>
-				<a href='/user/{{i.user_name}}'  id='indexUrl'>
+				<a href='/user/{{i.user.id}}' id='indexUrl'><img src='/upload/{{ i.user.avatar }}' class='img-responsive img-circle userIndexShow' alt='avatar' ></a>
+				<a href='/user/{{i.user.id}}'  id='indexUrl'>
 				<p class='userIndexName'>
 					{% if i.user.nickname %}
 						{{i.user.nickname}}

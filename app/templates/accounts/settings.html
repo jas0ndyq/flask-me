@@ -17,7 +17,7 @@
 	{% if current_user.is_authenticated() %}
 	<div class='panel panel-primary myPanel'>
 		<div class='panel-heading'>
-			<h3 class='text-center'>个人设置</h3>
+			<h4 class='text-center'>个人设置</h4>
 		</div>
 	<div class='panel-body'>
 		<div class='avatar'>
@@ -26,7 +26,7 @@
 	<div class='userSet1'>
 		<div class='userSetUper'>
 		<i class="fa icon-magnet" data-toggle="collapse" data-target="#collapseAvatar" aria-expanded="false" aria-controls="collapseExample">
-			<span  data-toggle="modal" data-target=".bs-example-modal-sm">修改头像</span>
+			<span  data-toggle="modal" data-target=".bs-example-modal-sm" id='showSpan'>修改头像</span>
 		</i>
 		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   			<div class="modal-dialog">
@@ -51,7 +51,7 @@
 
 		<div class='userPassSet'>
 			<i class="fa icon-lock">
-				<span  data-toggle="modal" data-target=".bs-example-modal-sm2">修改密码</span>
+				<span  data-toggle="modal" data-target=".bs-example-modal-sm2" id='showSpan'>修改密码</span>
 			</i>
 			<div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   			<div class="modal-dialog">
@@ -89,29 +89,28 @@
 		{% if user_content %}
 		<div class='userPassSet'>
 			<i class="fa icon-user">
-				<span   data-toggle="modal" data-target=".bs-example-modal-sm1">修改介绍</span>
+				<span   data-toggle="modal" data-target=".bs-example-modal-sm1" id='showSpan'>修改介绍</span>
 			</i>
 		</div>
 		{% endif %}
 	</div>
 
 		<div class='userSet'>
-		<p class='titleSet'>说说你自己</p>
+		<p class='titleSet'>
+		{% if not user_content %}
+			说说你自己
+		{% else %}
+			你的介绍
+		{% endif %}
+		</p>
 		<form method='POST' type='text'>
 		{{ form.csrf_token }}
-		<div class='form-group'>
-			<label for='content-box'></label>
-		</div>
+
 		{% if user_content %}
 		<div>
-			<p>{{ user_content.body }}</p> <br>
+			<p class='userBody'>{{ user_content.body }}</p> <br>
 		</div>
-		<br>
-		{% if user.nickname %}
-		<div>
-			<p>{{user.nickname}}</p>
-		</div>
-		{% endif %}
+
 		<div class="modal fade bs-example-modal-sm1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   			<div class="modal-dialog">
     			<div class="modal-content">
@@ -122,7 +121,11 @@
 				<div class='modal-body'>
 					<div class='form-group'>
 						<label for='nickname'>你的大名</label>
-						{{form.nickname(type='text', class_='form-control', id='nickname')}}
+						{% if user.nickname %}
+						{{form.nickname(type='text', class_='form-control', id='nickname', value=user.nickname)}}
+						{% else %}
+						{{form.nickname(type='text', class_='form-control', id='nickname', placeholder='写出你的大名or小名～，让我们认识你')}}
+						{% endif %}
 					</div>
 					<div class='form-group'>
 						<label for='content-box'>告诉我们关于你</label>
@@ -141,14 +144,17 @@
 		{% else %}
 		<div class='form-group'>
 			<label for='nickname'>你的大名</label>
-			{{form.nickname(type='text', class_='form-control', id='nickname')}}
+			{% if not user.nickname %}
+			{{form.nickname(type='text', class_='form-control', id='nickname', placeholder='记得写你的名字啊～就像考试那样')}}
+			{% else %}
+			{{form.nickname(type='text', class_='form-control', id='nickname', value=user.nickname)}}
+			{% endif %}
 		</div>		
 		<div class='form-group'>
 				<label for='content-box'>告诉我们关于你</label>
 				<textarea type='text' rows='3' name='contentbox' class='form-control' id='content-box' placeholder='在这里介绍你自己'></textarea>
 		</div>
 		{% endif %}
-		<br>
 		{% if not user_content %}
 		<div class='signButton'>
 			<button type='submit' class='btn btn-primary'>
@@ -157,7 +163,7 @@
 		</div>
 		{% endif %}
 		</form>
-		<br>
+		<hr class='hrSetting'>
 		<p class='titleSet'>社交链接</p>
 		<form method='POST' class='form-inline'>
 		{{form_media.csrf_token}}
@@ -172,17 +178,17 @@
 		</div>
 		<br><br>
 		<div class='form-group formMedia'>
-			<label for='content-zhihu' class='labelMedia'><i class="icon iconfont">&#xe6d1;</i></label>
+			<label for='content-zhihu' class='labelMedia'><i class="icon iconfont zhihu">&#xe6d1;</i></label>
 			<span class='inner-right'>http://www.zhihu.com/people/{{ form_media.zhihu(type='text', class_='form-control_media', id='content-zhihu', value=user_media.zhihu) }}</span>
 		</div>
 		<br><br>
 		<div class='form-group formMedia'>
-			<label for='content-douban' class='labelMedia'><i class='icon iconfont'>&#xe633;</i></label>
+			<label for='content-douban' class='labelMedia'><i class='icon iconfont douban'>&#xe633;</i></label>
 			http://www.douban.com/people/{{ form_media.douban(type='text', class_='form-control_media', id='content-douban', value=user_media.douban) }}
 		</div>
 		<br><br>
 		<div class='form-group formMedia'>
-			<label for='content-weixin' class='labelMedia'><i class='icon iconfont'>&#xe628;</i></label>
+			<label for='content-weixin' class='labelMedia'><i class='icon iconfont weixin'>&#xe628;</i></label>
 			{{ form_media.weixin(type='text', class_='form-control_media', id='content-weixin', value=user_media.weixin, placeholder='输入微信号') }}
 		</div>
 		<br><br>

@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% from "other.html" import test %}
+{% block content %}
 
 <head>
 	<title>Me-首页</title>
@@ -7,7 +8,6 @@
 </head>
 
 
-{% block content %}
 <div class='container myContent'>
 	{% if index_show %}
 	{% for piece in pieces_data %}

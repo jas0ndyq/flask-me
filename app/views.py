@@ -45,8 +45,8 @@ def signin():
 		if user.is_correct_password(form.password.data):
 			login_user(user)
 			username = current_user.username
-			location = '/user/%s' % username
-			return redirect(location) 
+			#location = '/user/%s' % 
+			return redirect('/') 
 		else:
 			return redirect('/signin')
 	return render_template('signin.html', form=form)
@@ -118,9 +118,9 @@ def show():
 				user = current_user
 				)
 			db.session.add(new_content)
+			user.nickname = form.nickname.data
 			db.session.commit()
-		#return new_content
-			return redirect('/')
+			return redirect('accounts/settings')
 		else:
 			user.nickname = form.nickname.data
 			db.session.commit()
@@ -199,21 +199,21 @@ def uploaded_file(filename):
     	return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
 
-@app.route('/user/<username>', methods=['GET'])
-def show_user(username):
-	user = User.query.filter_by(username=username).first_or_404()
+@app.route('/user/<int:id>', methods=['GET'])
+def show_user(id):
+	user = User.query.filter_by(id=id).first_or_404()
 	user_avatar = user.avatar
 	if user == None:
 		return redirect('/404')
-	user_media = Media.query.filter_by(user_name=username).first()
-	user_content = Content.query.filter_by(user_name=username).order_by(Content.pub_date.desc()).first()
+	user_media = Media.query.filter_by(user_name=user.username).first()
+	user_content = Content.query.filter_by(user_name=user.username).order_by(Content.pub_date.desc()).first()
 	vote_stat = ''
 	if current_user.is_authenticated() and user_content:
 		vote_stat = VoteStat.query.filter_by(user_id=current_user.id, content_id=user_content.id).first()
 	return render_template('/user.html',
 		user_content=user_content,
 		user_media=user_media,
-		username=username,
+		id = id,
 		user = user,
 		vote_stat = vote_stat
 		)

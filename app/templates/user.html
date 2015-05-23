@@ -12,8 +12,14 @@
 		<div class='avatar'>
 			<img src='/upload/{{ user.avatar }}' class='img-responsive img-circle center-block userShow' alt='avatar' >
 		</div>
-		<h1 class='text-center usernameShow'>{{ user_content.user_name }}</h1>
-		{% if user_media %}
+		<h2 class='text-center usernameShow'>
+			{% if user.nickname %}
+			{{ user.nickname }}
+			{% else %}
+			{{ user.username }}
+			{% endif %}
+		</h2>
+		{% if  user_media %}
 		<div class='socialLinks'>
 			{% if user_media.weibo %}
 			<a href='http://weibo.com/{{ user_media.weibo }}' class='socialLink'><i class='fa icon-weibo'></i></a>
@@ -22,18 +28,20 @@
 			<a href='http://www.twitter.com/{{ user_media.twitter }}' class='socialLink'><i class='fa icon-twitter'></i></a>
 			{% endif %}
 			{% if user_media.zhihu %}
-			<a href='' class='socialLink'><i class="icon iconfont">&#xe6d1;</i></a>
+			<a href='http://www.zhihu.com/people/{{ user_media.zhihu }}' class='socialLink'><i class="icon iconfont zhihu">&#xe6d1;</i></a>
 			{% endif %}
 			{% if user_media.douban %}
-			<a href='http://douban.com/people/{{ user_media.douban }}' class='socialLink'><i class='icon iconfont'>&#xe64a;</i></a>
+			<a href='http://douban.com/people/{{ user_media.douban }}' class='socialLink'><i class='icon iconfont douban'>&#xe64a;</i></a>
 			{% endif %}
 			{% if user_media.weixin %}
-			<a class='socialLink'><i class='icon iconfont'>&#xe7f0;</i></a>
+			<a class='socialLink'><i class='icon iconfont weixin'>&#xe7f0;</i></a>
 			{% endif %}
 		</div>
-		{% endif %}	
+		{% else %}
+		<hr />
+		{% endif %}
 		<div class='userContent'>
-		<p class='titleSet'>TA这样介绍自己</p>
+		<p class='titleSet' id='userTitle'>TA这样介绍自己</p>
 		<p class='userBody'>{{ user_content.body }}</p>
 		</div>
 		<!--

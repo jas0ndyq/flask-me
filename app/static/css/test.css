@@ -11,12 +11,16 @@ body {
 	margin-right: auto;
 	
 }
-
+@media (max-width: 767px) {
+	.row {width: 100%;}
+}
 .myRow {
 	width: 50%;
 }
+
+
 .panel-heading {
-	height: 50px;
+	height: 3em;
 		
 }
 
@@ -65,7 +69,11 @@ body {
 }
 
 p.userBody {
-	padding-bottom: 30px;
+	padding-bottom: 1.3em;
+	color: #777;
+	line-height: 1.5em;
+	font-size: 1.3em;
+	text-indent: 2em;
 }
 .form-control_media {
     border-top-width: 0px;
@@ -81,17 +89,15 @@ p.userBody {
     border-bottom-color: #2CC185;
     border-left-color: #000000;
     width: 6em;
-    opacity: 0.4;
 }
 .form-control_media:focus {
 	outline:none;
 	border-bottom-width: 2px;
 	border-bottom-color: #2CC185;
-	opacity: 1
+	opacity: 0.6
 }
 .form-control_media:hover {
 	outline:none;
-	opacity: 0.6
 }
 img.userShow {
 	width: 120px;
@@ -109,6 +115,8 @@ img.userIndexShow {
 	display: inline;
 	margin-left: 0.5em;
 	font-size: 1.5em;
+	color: #333;
+	font-weight: bold;
 }
 
 .usernameShow {
@@ -135,6 +143,7 @@ img.userIndexShow {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
+	transition: background .3s;
 	-webkit-flex: 1 0 10%;
 	flex: 1 0 10%;
 
@@ -160,6 +169,9 @@ img.userIndexShow {
 	display: inline-block;
 	margin: auto
 }
+
+
+
 .labelMedia {
 	width: 20%;
 	font-size: 20px;
@@ -168,6 +180,8 @@ img.userIndexShow {
 	text-align: center;
 	margin-top: 2em;
 	font-size: 1.5em;
+	margin-bottom: 1.5em;
+	color: #4a90e2;
 }
 .inner-right {
 	width: 80%;
@@ -175,13 +189,18 @@ img.userIndexShow {
 .formMedia {
 	width: 100%;
 }
+#userTitle {
+	color: #333;
+}
 .userContent {
 	max-width: 480px;
 	margin-left: auto;
-	margin-right: auto
+	margin-right: auto;
+	margin-top: 1.5em;
 }
 .indexName {
 	margin-bottom: 1.5em;
+
 }
 .indexContent {
 	border-bottom: 1px  gray;
@@ -244,4 +263,29 @@ img.userIndexShow {
 }
 #passSet {
 	text-align: left;
+}
+#showSpan {
+  	cursor: pointer;
+}
+i.icon-weibo {
+	color: red;
+}
+i.icon-twitter {
+	color: #1BB2E9;
+}
+i.zhihu {
+	color: #8CD3FB;
+}
+i.douban {
+	color: #228A31;
+}
+i.weixin {
+	color: #00BD0C;
+}
+
+hr.hrSetting {
+	border-bottom: 0;
+	border-style: dashed;
+	border-color: #ddd;
+	width: auto;	
 }
