@@ -210,12 +210,15 @@ def show_user(id):
 	vote_stat = ''
 	if current_user.is_authenticated() and user_content:
 		vote_stat = VoteStat.query.filter_by(user_id=current_user.id, content_id=user_content.id).first()
+	current_url = 'http://127.0.0.1/user/%d' % id
+	qr_code = 'http://qr.liantu.com/api.php?w=200&text=%s' % current_url
 	return render_template('/user.html',
 		user_content=user_content,
 		user_media=user_media,
 		id = id,
 		user = user,
-		vote_stat = vote_stat
+		vote_stat = vote_stat,
+		qr_code = qr_code
 		)
 
 @app.route('/json', methods=['POST'])
