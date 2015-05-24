@@ -39,16 +39,18 @@ def index():
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
 	form = UsernamePasswordForm()
-	
+	user = User.query.filter_by(username=form.username.data).first()
 	if form.validate_on_submit():
-		user = User.query.filter_by(username=form.username.data).first_or_404()
+		if user == None:
+			flash('好像没这个人啊喂ㄟ( ▔, ▔ )ㄏ ')
+			return redirect('/signin')
 		if user.is_correct_password(form.password.data):
-			login_user(user)
+			login_user(user, remember=True)
 			username = current_user.username
 			#location = '/user/%s' % 
 			return redirect('/') 
 		else:
-			return redirect('/signin')
+			flash('(ˉ▽￣～) 切~~ 你的密码错了...')
 	return render_template('signin.html', form=form)
 
 @app.route('/signout')
@@ -92,7 +94,7 @@ def show():
 	user = User.query.filter_by(username=current_user.username).first()
 	if form_pass.validate_on_submit():
 		if form_pass.lastpass.data != user.password:
-			flash('wrong pass!')
+			flash('初始密码错误')
 			return redirect('/accounts/settings')
 		else:
 			if form_pass.confirpass.data != form_pass.newpass.data:

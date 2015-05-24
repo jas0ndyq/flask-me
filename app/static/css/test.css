@@ -1,7 +1,7 @@
 body {
 	background-color: #f0f0f0;
 	font-family: Karla,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif
-
+	
 }
 
 
@@ -31,14 +31,16 @@ body {
 .text-center {
 	margin-top: 5px;
 }
-
+#indexNone {
+	margin-top: 4em;
+	opacity: 0.8;
+}
 
 .myContent {
 	width: auto;
 	margin-top: 20px;
 	position: relative;
 	background-color: #f0f0f0;
-
 }
 
 .navbar {
@@ -61,7 +63,9 @@ body {
 	text-decoration: none;
 	color: black;
 }
-
+#noMore {
+	margin-bottom: 1.5em;
+}
 
 .panel-primary>.panel-heading {
 	background-color: #4a90e2;
@@ -347,7 +351,7 @@ hr.hrSetting {
 	margin-top: 10em;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
 	.row {width: 100%;}
 	.myRow {width: 100%;}
 	.userSet1{
@@ -386,4 +390,9 @@ hr.hrSetting {
 	.userContent {
 		padding: 0 .5em;
 	}
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+	.row {width: 80%;}
+	.myRow {width: 80%;}
 }

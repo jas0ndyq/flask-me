@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
-<head>
-	<title>Me-SignUp</title>
-</head>
+
+{% block title %}
+Me-注册
+{% endblock %}
 
 {% block content %}
 <div class='container myContent'>
@@ -27,6 +28,9 @@
 		<div class='form-group'>
 			<label for='inputUsername'>用户名</label><br>
 			{{ form.name(type='username', class_='form-control', id='inputUsername', placeholder='用户名') }}
+			{% for error in form.errors.name %}
+			<p>{{ error }}</p>
+			{% endfor %}	
 			
 		</div>
 		<br>

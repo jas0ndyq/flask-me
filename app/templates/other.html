@@ -2,7 +2,7 @@
 	{% macro test(var) %}
 
 	<div class='row'>
-	<div class='panel panel-primary myPanel'>
+	<div class='panel panel-primary myPanel' id='{{ var.date_string }}'>
 		<div class='panel-heading'>
 			<h4 class='text-center'>{{ var.date_string }}</h4>
 		</div>
@@ -54,7 +54,12 @@
 			{% endfor %}
 
 			{% else %}
-			<div class='text-center'>None</div>
+			<div class='text-center' id='indexNone'>- 无 -</div>
+			<!--<script type="text/javascript">
+			$(document).ready(function(){
+				$('#{{var.date_string}}').remove()
+			})
+			</script>-->
 			{% endif %}
 		</div>
 	</div>

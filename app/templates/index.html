@@ -1,13 +1,11 @@
 {% extends 'layout.html' %}
 {% from "other.html" import test %}
+
+{% block title %}
+Me-首页
+{% endblock %}
+
 {% block content %}
-
-<head>
-	<title>Me-首页</title>
-
-</head>
-
-
 <div class='container myContent'>
 	{% if index_show %}
 	{% for piece in pieces_data %}
@@ -45,7 +43,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
     return fmt;
 }
 var myDate=new Date()
-var targetDate = new Date(2015, 4, 7)
+var targetDate = new Date(2015, 4, 20)
 myDate.setDate(myDate.getDate()-5)
 $(document).ready(function(){
   $("button").click(function(){
@@ -60,7 +58,7 @@ $(document).ready(function(){
       if (myDate < targetDate) {
       document.getElementById("debug").innerHTML = 'None';
       $('#flag').remove();
-      document.getElementById('noMore').innerHTML = 'No More Content'
+      document.getElementById('noMore').innerHTML = '没人啦！（╯‵□′）╯︵┴─┴'
       }
     });
   });

@@ -10,9 +10,9 @@ from models import User
 
 class MyForm(Form):
 	name = StringField('Name', validators=[DataRequired(),
-		Unique(User, User.username, message='There is already an account with this username!')])
+		Unique(User, User.username, message='这个用户名被占了～')])
 	email = StringField('Email', validators=[DataRequired(), Email(), 
-		Unique(User, User.email, message='There is already an account with that email. ')])
+		Unique(User, User.email, message='这个邮箱被占了～ ')])
 	password = PasswordField('Password', validators=[DataRequired()])
 	invitation = StringField('Invitation', validators=[DataRequired()])
 

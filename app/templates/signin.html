@@ -1,10 +1,18 @@
 {% extends 'layout.html' %}
-<head>
-	<title>Me-SignIn</title>
-</head>
+
+{% block title %}
+Me-登录
+{% endblock %}
+
 {% block content %}
 <div class='container myContent'>
 	<div class='row myRow'>
+	{% if get_flashed_messages() %}
+	<div class="alert alert-danger alert-dismissible fade in" role="alert">
+  		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  		<strong>{{get_flashed_messages()[0]}}</strong>
+	</div>
+	{% endif %}
 		<div class='panel panel-primary myPanel'>
 			<div class='panel-heading'>
 				<h4 class='text-center'>登录</h4>

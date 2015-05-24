@@ -1,13 +1,15 @@
 {% extends 'layout.html' %}
+
+{% block title %}
+Me-账户设置
+{% endblock %}
+
 {% block content %}
-<head>
-	<title>Me-User</title>
-</head>
-<body>
+
 <div class='container myContent'>
 	<div class='row'>
 	{% if get_flashed_messages() %}
-	<div class="alert alert-warning alert-dismissible" role="alert">
+	<div class="alert alert-danger alert-dismissible fade in" role="alert">
   		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   		<strong>{{get_flashed_messages()[0]}}</strong>
 	</div>
@@ -211,5 +213,4 @@
 	<br>
 	{% endif %}
 
-</body>
 {% endblock %}
