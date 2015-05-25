@@ -1,0 +1,28 @@
+"""create test table
+
+Revision ID: b6c29de8ab3
+Revises: 
+Create Date: 2015-05-25 13:57:15.003604
+
+"""
+
+# revision identifiers, used by Alembic.
+revision = 'b6c29de8ab3'
+down_revision = None
+branch_labels = None
+depends_on = None
+
+from alembic import op
+import sqlalchemy as sa
+
+
+def upgrade():
+    op.create_table(
+	'test',
+	sa.Column('id', sa.Integer, primary_key=True),
+	sa.Column('role', sa.String(80), default='user'),
+	)
+
+
+def downgrade():
+    op.drop_table('test')
