@@ -93,7 +93,7 @@ def show():
 	form_pass = ChangePassWord()
 	user = User.query.filter_by(username=current_user.username).first()
 	if form_pass.validate_on_submit():
-		if form_pass.lastpass.data != user.password:
+		if not user.is_correct_password(form_pass.lastpass.data):
 			flash('初始密码错误')
 			return redirect('/accounts/settings')
 		else:

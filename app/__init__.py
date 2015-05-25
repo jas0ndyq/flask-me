@@ -1,22 +1,27 @@
+# -*- coding: utf-8 -*-
 import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
-from flask.ext.bootstrap import Bootstrap
-
-
+from flask.ext.bcrypt import Bcrypt
+from flask.ext.migrate import Migrate, MigrateCommand
 
 app = Flask(__name__)
 app.config.from_object('config')
 
 
-bootstrap = Bootstrap(app)
 
 db = SQLAlchemy(app)
+
+bcrypt = Bcrypt(app)
+
+migrate = Migrate(app, db)
+manager.add_command('db', MigrateCommand)
 
 from app import views, forms, models
 
 from app.models import User
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)

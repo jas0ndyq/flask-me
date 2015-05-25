@@ -1,4 +1,6 @@
 Flask-WTF
 Flask-SQLAlchemy
 Flask-Login
+Flask-Bcrypt
+flask-migrate
 Bootstrap

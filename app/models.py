@@ -1,22 +1,29 @@
 # -*- coding: utf-8 -*-
-from app import db
+from app import db, bcrypt
 from datetime import datetime, date, timedelta
 import time
+from sqlalchemy.ext.hybrid import hybrid_property
 
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	nickname = db.Column(db.String(80), unique=True)
 	username = db.Column(db.String(80), unique=True)
-	password = db.Column(db.String(8))
+	_password = db.Column(db.String(128))
 	email = db.Column(db.String(120), unique=True)
 	avatar = db.Column(db.String(), default='default.jpg')
-	def __init__(self, username, email, password):
-		self.username = username
-		self.email = email
-		self.password = password
+	
+	@hybrid_property
+	def password(self):
+		return self._password
+#配置密码加密形式
+	@password.setter
+	def _set_password(self, passtext):
+        		self._password = bcrypt.generate_password_hash(passtext)
 
 	def is_correct_password(self, passtext):
-		return self.password == passtext
+		return bcrypt.check_password_hash(self.password, passtext)
+
+
 
 	def is_authenticated(self):
         		return True
